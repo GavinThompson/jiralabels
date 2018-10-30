@@ -1,18 +1,18 @@
-# Labels for Pivotal Tracker
+# Labels for Jira
 
-This Chrome extension for Pivotal Tracker allows you to set custom colors for
+This Chrome extension for Jira allows you to set custom colors for
 label names.
 
 ![](https://lh3.googleusercontent.com/KQcEsgjs5-CwNuLorWlhRy8fiSBWrjVuyEU1RYzxDtLTQmg7I8HuJ8oqQ_hSrwAHJ9qmUTAKsA=s1280-h800-e365-rw)
 
 ## Installation
 
-Install the exension here:
-
-https://chrome.google.com/webstore/detail/pivotal-labels/njkofaephafobbeabnmmmijchhhdomio
-
-Then navigate to the "options" for the extension to start adding labels.
+Installation instructions coming soon
 
 ## License
 
 MIT
+
+## Credit
+
+Do you use Pivotal Tracker instead of Jira? Check out Dustin Ingram's original Pivotal Labels here: https://github.com/di/pivotallabels

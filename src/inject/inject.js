@@ -10,10 +10,32 @@ function textColor(hex) {
   }
 }
 
+function styleLabels(labels) {
+  chrome.storage.sync.get({'labels': {}}, function(storage) {
+    Array.prototype.forEach.call(labels, function(label) {
+      var labelText = label.textContent.toLowerCase().replace(/\, $/g, '');
+      var labelColor = storage.labels[labelText];
+      if (labelColor) {
+        var hex = "#" + labelColor
+        label.style.setProperty('background-color', hex);
+        label.style.setProperty('color', textColor(hex));
+        label.textContent = labelText;
+        label.classList.add('custom')
+      } else {
+        label.style.backgroundColor = '';
+        label.classList.remove('custom')
+      }
+    });
+  });
+}
+
 chrome.extension.sendMessage({}, function(response) {
   var readyStateCheckInterval = setInterval(function() {
     if (document.readyState === "complete") {
       clearInterval(readyStateCheckInterval);
+
+      var initLabels = document.querySelectorAll("div[color='standard'] span[color='standard'] span[color='standard']");
+      styleLabels(initLabels);
 
       var observer = new MutationObserver(function (mutations) {
         mutations.forEach(handleMutationEvents);
@@ -45,27 +67,10 @@ chrome.extension.sendMessage({}, function(response) {
       }
 
       var findLabelsInNode = function findLabelsInNode(node) {
-        return node.querySelectorAll('a.label');
+        return node.querySelectorAll("div span[color='standard'] span[color='standard']");
       }
 
-      var styleLabels = function styleLabels(labels) {
-        chrome.storage.sync.get({'labels': {}}, function(storage) {
-          Array.prototype.forEach.call(labels, function(label) {
-            var labelText = label.textContent.replace(/\, $/g, '');
-            var labelColor = storage.labels[labelText];
-            if (labelColor) {
-              var hex = "#" + labelColor
-              label.style.setProperty('background-color', hex);
-              label.style.setProperty('color', textColor(hex));
-              label.textContent = labelText;
-              label.classList.add('custom')
-            } else {
-              label.style.backgroundColor = '';
-              label.classList.remove('custom')
-            }
-          });
-        });
-      }
+
     }
   }, 10);
 });
